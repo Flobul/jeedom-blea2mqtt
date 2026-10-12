@@ -36,7 +36,7 @@ class blea2mqtt extends eqLogic {
     /**
      * URL du dépôt GitHub pour le projet Flobul/Blea2Mqtt.
      */
-    const GITHUB_FLOBUL_BLEA2MQTT  = 'https://github.com/Flobul/blea2mqtt.git';
+    const GITHUB_FLOBUL_BLEA2MQTT  = 'https://github.com/Flobul/jeedom-blea2mqtt.git';
 
     /**
      * URL du dépôt GitHub pour le projet BitKill/Blea2Mqtt.
@@ -299,16 +299,16 @@ class blea2mqtt extends eqLogic {
         log::add(__CLASS__, 'debug', __FUNCTION__ .' début');
         $filename = __DIR__ . '/../../core/config/cmds.json';
         if ( file_exists($filename) === false ) {
-            throw new Exception('Impossible de trouver le fichier de configuration pour l\'équipement ');
+            throw new Exception(__('Impossible de trouver le fichier de configuration pour l\'équipement', __FILE__));
         }
         $content = file_get_contents($filename);
         if (!is_json($content)) {
-            throw new Exception('Le fichier de configuration \'' . $filename . '\' est corrompu');
+            throw new Exception(__('Le fichier de configuration est corrompu', __FILE__) . ' : ' . $filename);
         }
 
         $data = json_decode($content, true);
         if (!is_array($data) || !isset($data['commands'])) {
-            throw new Exception('Le fichier de configuration \'' . $filename . '\' est invalide');
+            throw new Exception(__('Le fichier de configuration est invalide', __FILE__) . ' : ' . $filename);
         }
 
 		foreach ($data['commands'] as $command) {
@@ -500,7 +500,7 @@ class blea2mqtt extends eqLogic {
               $cmd = "$action -k gui/$(id -u $( ls -l /dev/console | awk '{print $3}' ))/git.blea2mqtt";
                 break;
             default:
-                throw new Exception("Action inconnue : $action");
+                throw new Exception(__('Action inconnue', __FILE__) . ' : ' . $action);
         }
         return "launchctl $cmd";
     }
@@ -828,7 +828,7 @@ class blea2mqttCmd extends cmd {
                 }
                 break;
             default:
-                throw new Exception("Action inconnue : " . $this->getLogicalId());
+                throw new Exception(__('Action inconnue', __FILE__) . ' : ' . $this->getLogicalId());
         }
 
         log::add('blea2mqtt', 'debug', __FUNCTION__ . __(' getLaunchctlCommandgetLaunchctlCommand : ',__FILE__) . json_encode($execCmd));

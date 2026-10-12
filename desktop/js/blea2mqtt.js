@@ -53,7 +53,7 @@ function addCmdToTable(_cmd) {
   tr += '<div style="margin-top:7px;">'
   tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
   tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
-  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
+  tr += '<input class="tooltips cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unité}}" title="{{Unité}}" style="width:30%;max-width:80px;display:inline-block;margin-right:2px;">'
   tr += '</div>'
   tr += '</td>'
   tr += '<td>';
@@ -129,16 +129,16 @@ document.querySelector('.eqLogicAttr[data-action="installDependancy"]')?.addEven
 	        }
 	    });
 
-	  jeeDialog.dialog({id: 'md_modal', title: '{{SSH commandes}}', contentUrl: 'index.php?v=d&modal=log.display&log=blea2mqtt_dep'});
+	  jeeDialog.dialog({title: '{{SSH commandes}}', contentUrl: 'index.php?v=d&modal=log.display&log=blea2mqtt_dep'});
 });
 
 
 document.getElementById('bt_healthblea2mqtt')?.addEventListener('click', function() {
-	  jeeDialog.dialog({id: 'md_modal', title: '{{Santé des antennes blea2mqtt}}', contentUrl: 'index.php?v=d&plugin=blea2mqtt&modal=health'});
+	  jeeDialog.dialog({title: '{{Santé des antennes blea2mqtt}}', contentUrl: 'index.php?v=d&plugin=blea2mqtt&modal=health'});
 });
 
 document.getElementById('bt_devicesblea2mqtt')?.addEventListener('click', function() {
-	  jeeDialog.dialog({id: 'md_modal', title: '{{Santé des sondes blea2mqtt}}', contentUrl: 'index.php?v=d&plugin=blea2mqtt&modal=devices'});
+	  jeeDialog.dialog({title: '{{Santé des sondes blea2mqtt}}', contentUrl: 'index.php?v=d&plugin=blea2mqtt&modal=devices'});
 });
 
 

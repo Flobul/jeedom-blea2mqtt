@@ -1,0 +1,53 @@
+/**
+ * CSS du plugin blea2mqtt — Desktop (page d'accueil).
+ *
+ * Référence : localhomeconnect (desktop/css/localhomeconnect.css)
+ * https://github.com/DomoFlo1/jeedom-localhomeconnect
+ *
+ * Styles pour la page d'accueil : icônes, boutons d'action, panneaux.
+ */
+
+/* Icon spacing in hiddenAsCard rows */
+span.hiddenAsCard i.fas.fa-sign-in-alt {
+    margin-right: 10px;
+    vertical-align: top;
+    margin-top: -3px;
+    margin-left: -5px !important;
+}
+
+span.hiddenAsCard i.fas.status-circle {
+    margin-right: 6px;
+}
+
+/* Status icon positioning */
+span.blea2mqttIconStatus i.fas {
+    top: 26px;
+    font-size: 1em !important;
+    position: absolute;
+    margin-left: 18px;
+}
+
+/* Secondary action with orange accent */
+div.logoSecondary[data-action="checkMqtt"] {
+    color: orange;
+}
+
+/* Panel titles */
+.eqLogicThumbnailDisplay .panel-title {
+    background-color: var(--al-info-color, #5bc0de) !important;
+    color: #fff !important;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Equipment card hover */
+.eqLogicDisplayCard.cursor:hover {
+    opacity: .65 !important;
+}
+
+/* Dark theme */
+[data-theme="core2019_Dark"] .eqLogicThumbnailDisplay .panel-title {
+    background-color: var(--al-info-color, #5bc0de) !important;
+}
+[data-theme="core2019_Dark"] .eqLogicDisplayCard[style*="border-left"]:hover {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}

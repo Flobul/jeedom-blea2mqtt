@@ -1,70 +1,75 @@
 <?php
-/* This file is part of Jeedom.
- *
- * Jeedom is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Jeedom is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
- */
-
+/* This file is part of Jeedom. */
 if (!isConnect('admin')) {
-    throw new Exception('401 Unauthorized');
+    throw new Exception(__('401 - Accès non autorisé', __FILE__));
 }
+
+function blea2mqttHealthEscape($_value)
+{
+    return htmlspecialchars((string) $_value, ENT_QUOTES, 'UTF-8');
+}
+
 $eqLogics = blea2mqtt::byType('blea2mqtt');
-?>
-<style>
-    .scanHender{
-        cursor: pointer !important;
-        width: 100%;
+$enabledCount = 0;
+$connectedCount = 0;
+$libraries = [];
+foreach ($eqLogics as $healthEqLogic) {
+    if ($healthEqLogic->getIsEnable()) {
+        $enabledCount++;
     }
-</style>
+    $lastReceived = (string) $healthEqLogic->getStatus('lastReceivedFrom');
+    if ($lastReceived !== '' && strtotime($lastReceived) !== false && time() - strtotime($lastReceived) <= 720) {
+        $connectedCount++;
+    }
+    $library = trim((string) $healthEqLogic->getConfiguration('library', ''));
+    if ($library !== '') {
+        $libraries[$library] = true;
+    }
+}
+?>
+<?php include_file('desktop', 'health', 'css', 'blea2mqtt'); ?>
 
-<table class="table table-condensed tablesorter" id="table_healthblea2mqtt">
-	<thead>
-		<tr>
-			<th>{{Appareil}}</th>
-			<th>{{Id}}</th>
-			<th>{{Système}}</th>
-			<th>{{Librairie}}</th>
-			<th>{{Date de de dernière actualisation}}</th>
-			<th>{{Date d'ajout}}</th>
-			<th>{{Date création}}</th>
-		</tr>
-	</thead>
-	<tbody>
-      <?php
+<div id="blea2mqttHealth">
+    <header class="blea2mqtt-health-hero">
+        <span class="blea2mqtt-health-hero-icon"><i class="fas fa-heartbeat"></i></span>
+        <div>
+            <span class="blea2mqtt-health-eyebrow">{{Diagnostic du plugin}}</span>
+            <h2>{{Santé BLEA2MQTT}}</h2>
+            <p>{{État des antennes Bluetooth et de leur communication avec Jeedom.}}</p>
+        </div>
+    </header>
 
-        foreach ($eqLogics as $eqLogic) {
-          echo '<tr><td><a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">' . $eqLogic->getHumanName(true) . '</a></td>';
+    <section class="blea2mqtt-health-summary" aria-label="{{Résumé de la santé BLEA2MQTT}}">
+        <article><span class="blea2mqtt-health-summary-icon"><i class="fas fa-broadcast-tower"></i></span><div><span>{{Antennes}}</span><strong><?php echo count($eqLogics); ?></strong><small>{{configurée(s)}}</small></div></article>
+        <article><span class="blea2mqtt-health-summary-icon"><i class="fas fa-power-off"></i></span><div><span>{{Actives}}</span><strong><?php echo (int) $enabledCount; ?></strong><small><?php echo max(0, count($eqLogics) - $enabledCount); ?> {{désactivée(s)}}</small></div></article>
+        <article><span class="blea2mqtt-health-summary-icon"><i class="fas fa-wifi"></i></span><div><span>{{Connectées}}</span><strong><?php echo (int) $connectedCount; ?></strong><small>{{activité depuis moins de 12 min}}</small></div></article>
+        <article><span class="blea2mqtt-health-summary-icon"><i class="fas fa-code"></i></span><div><span>{{Librairies}}</span><strong><?php echo count($libraries); ?></strong><small>{{variante(s) détectée(s)}}</small></div></article>
+    </section>
 
-          echo '<td>' . $eqLogic->getConfiguration('name') . '</td>';
-
-          echo '<td><span class="label label-success" style="font-size : 1em; cursor : default;">'.$eqLogic->getConfiguration('system', 'N/A').'</span></td>';
-          
-          $lib = $eqLogic->getConfiguration('library', 'N/A');
-          echo "<td><span class='label label-info' style='font-size: 1em; cursor: default;'>$lib</span></td>";
-          
-          $status = $eqLogic->getStatus('lastReceivedFrom');
-          $temps = time() - strtotime($status);
-          if ($temps > 720) {
-              $lastProd = '    <i class="fas fa-times" title="{{Déconnecté}}</br>{{Depuis }}'.$temps.'{{ s}}" style="color:red"></i>';
-          } else {
-              $lastProd = '    <i class="fas fa-wifi" title="{{Connecté}}" style="color:green"></i>';
-          }
-          //$lastProd = $lastProd ? '<span class="label label-info" style="font-size: 1em; cursor: default;">' . date('Y-m-d H:i:s', $lastProd) . '</span>' : '<span class="label label-danger" style="font-size: 1em; cursor: default;">{{N/A}}</span>';
-          echo "<td>$lastProd $status</td>";
-
-          echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getStatus('lastCommunication') . '</span></td>';
-          echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('createtime') . '</span></td></tr>';
-        }
-      ?>
-	</tbody>
-</table>
+    <section class="blea2mqtt-health-panel">
+        <div class="blea2mqtt-health-panel-header"><i class="fas fa-satellite-dish"></i><h3>{{Antennes BLEA2MQTT}}</h3></div>
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped tablesorter" id="table_healthblea2mqtt">
+                <thead><tr><th>{{Appareil}}</th><th>{{Id}}</th><th>{{Système}}</th><th>{{Librairie}}</th><th>{{Connexion}}</th><th>{{Dernière communication}}</th><th>{{Date de création}}</th></tr></thead>
+                <tbody>
+                    <?php foreach ($eqLogics as $eqLogic) {
+                        $lastReceived = (string) $eqLogic->getStatus('lastReceivedFrom');
+                        $timestamp = strtotime($lastReceived);
+                        $isConnected = $lastReceived !== '' && $timestamp !== false && time() - $timestamp <= 720;
+                    ?>
+                        <tr<?php echo $eqLogic->getIsEnable() ? '' : ' class="blea2mqtt-health-disabled"'; ?>>
+                            <td><a href="<?php echo blea2mqttHealthEscape($eqLogic->getLinkToConfiguration()); ?>"><?php echo $eqLogic->getHumanName(true); ?></a></td>
+                            <td><?php echo blea2mqttHealthEscape($eqLogic->getConfiguration('name')); ?></td>
+                            <td><span class="label label-success"><?php echo blea2mqttHealthEscape($eqLogic->getConfiguration('system', 'N/A')); ?></span></td>
+                            <td><span class="label label-info"><?php echo blea2mqttHealthEscape($eqLogic->getConfiguration('library', 'N/A')); ?></span></td>
+                            <td><span class="label label-<?php echo $isConnected ? 'success' : 'danger'; ?>"><i class="fas fa-<?php echo $isConnected ? 'wifi' : 'times'; ?>"></i> <?php echo $isConnected ? '{{Connectée}}' : '{{Déconnectée}}'; ?></span><br><small><?php echo blea2mqttHealthEscape($lastReceived); ?></small></td>
+                            <td><?php echo blea2mqttHealthEscape($eqLogic->getStatus('lastCommunication')); ?></td>
+                            <td><?php echo blea2mqttHealthEscape($eqLogic->getConfiguration('createtime')); ?></td>
+                        </tr>
+                    <?php } ?>
+                    <?php if (count($eqLogics) === 0) { ?><tr><td colspan="7" class="text-center text-muted">{{Aucune antenne BLEA2MQTT}}</td></tr><?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

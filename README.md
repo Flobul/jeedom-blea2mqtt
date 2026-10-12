@@ -1,12 +1,12 @@
-# Plugin blea2mqtt
+# BLEA2MQTT Gateway Manager pour Jeedom
 
-[![License](https://badgen.net/github/license/Flobul/Jeedom-blea2mqtt?icon=github)](https://github.com/Flobul/Jeedom-blea2mqtt)
-[![Language](https://badgen.net/static/Language/PHP/blue?icon=github)](https://github.com/Flobul/Jeedom-blea2mqtt)
-[![Last commit](https://badgen.net/github/last-commit/Flobul/Jeedom-blea2mqtt?icon=github)](https://github.com/Flobul/Jeedom-blea2mqtt/commits)
-[![Open issues](https://badgen.net/github/open-issues/Flobul/Jeedom-blea2mqtt?icon=github)](https://github.com/Flobul/Jeedom-blea2mqtt/issues)
-[![Open pull requests](https://badgen.net/github/open-prs/Flobul/Jeedom-blea2mqtt?icon=github)](https://github.com/Flobul/Jeedom-blea2mqtt/pulls)
+[![License](https://img.shields.io/badge/License-GPL--2.0-blue?style=flat-square)](https://github.com/Flobul/jeedom-blea2mqtt/blob/HEAD/LICENSE)
+[![Language](https://img.shields.io/badge/Language-PHP-informational?style=flat-square)](https://github.com/Flobul/jeedom-blea2mqtt)
+[![Last commit](https://img.shields.io/badge/Last_commit-19/07/2026-yellow?style=flat-square)](https://github.com/Flobul/jeedom-blea2mqtt/commits)
+[![Open issues](https://img.shields.io/badge/Open_issues-0-brightgreen?style=flat-square)](https://github.com/Flobul/jeedom-blea2mqtt/issues)
+[![Open pull requests](https://img.shields.io/badge/Open_pull_requests-0-brightgreen?style=flat-square)](https://github.com/Flobul/jeedom-blea2mqtt/pulls)
 
-Le plugin blea2mqtt permet d'installer le paquet ["blea2mqtt"](https://github.com/Flobul/blea2mqtt) sur des machines distantes accessibles en SSH et d'intégrer les périphériques Bluetooth Low Energy (BLE) dans le système Jeedom en utilisant le protocole MQTT pour communiquer avec les périphériques BLE.
+Le plugin blea2mqtt permet d'installer le paquet ["blea2mqtt"](https://github.com/Flobul/jeedom-blea2mqtt) sur des machines distantes accessibles en SSH et d'intégrer les périphériques Bluetooth Low Energy (BLE) dans le système Jeedom en utilisant le protocole MQTT pour communiquer avec les périphériques BLE.
 Le but principal étant d'uniformiser et d'automatiser l'installation pour créer des antennes BLEA qui soient compatibles avec les publications Tasmota.
 
 Le plugin ne contient que les équipements "antenne" et les commandes permettant de relancer le service blea2mqtt.
@@ -21,7 +21,7 @@ Pour récupérer les informations des sondes et autres périphérique BLE, il es
 
 ## Fonctionnalités
 
-- Découverte automatique des périphériques BLE. (dans la limite des périphériques reconnus par ["blea2mqtt"](https://github.com/Flobul/blea2mqtt))
+- Découverte automatique des périphériques BLE. (dans la limite des périphériques reconnus par ["blea2mqtt"](https://github.com/Flobul/jeedom-blea2mqtt))
 - Envoyer les informations de vos équipements BLEA à un broker MQTT.
 - Possibilité d'activer/désactiver le service MQTT directement depuis le plugin
 - Prise en charge des systèmes Linux et macOS

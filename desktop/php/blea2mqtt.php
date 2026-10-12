@@ -1,19 +1,14 @@
 <?php
 if (!isConnect('admin')) {
-	throw new Exception('{{401 - Accès non autorisé}}');
+	throw new Exception(__('401 - Accès non autorisé', __FILE__));
 }
 // Déclaration des variables obligatoires
 $plugin = plugin::byId('blea2mqtt');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
-<style>
-span.hiddenAsCard i.fas.fa-sign-in-alt				{ margin-right:10px;vertical-align:top;margin-top:-3px;margin-left:-5px!important; }
-span.hiddenAsCard i.fas.status-circle				{ margin-right:6px; }
-span.blea2mqttIconStatus i.fas		 				{ top: 26px;font-size: 1em !important;position: absolute;margin-left: 18px; }
-div.logoSecondary[data-action="checkMqtt"]			{ color: orange; }
-</style>
-  
+<?php include_file('desktop', 'blea2mqtt', 'css', 'blea2mqtt'); ?>
+
 <div class="row row-overflow">
 	<!-- Page d'accueil du plugin -->
 	<div class="col-xs-12 eqLogicThumbnailDisplay">
@@ -31,7 +26,7 @@ div.logoSecondary[data-action="checkMqtt"]			{ color: orange; }
 				<span>{{Configuration}}</span>
 			</div>
 			<div class="cursor eqLogicAction logoSecondary" id="bt_healthblea2mqtt">
-				<i class="fas fa-medkit"></i>
+				<i class="fas fa-heartbeat"></i>
 				<br>
 				<span>{{Santé des antennes}}</span>
 			</div>

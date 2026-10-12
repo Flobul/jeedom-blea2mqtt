@@ -16,7 +16,7 @@
  */
 
 if (!isConnect('admin')) {
-    throw new Exception('401 Unauthorized');
+    throw new Exception(__('401 - Accès non autorisé', __FILE__));
 }
 $eqLogics = blea2mqtt::byType('blea2mqtt');
 $broker = blea2mqtt::getBrokerInfos();

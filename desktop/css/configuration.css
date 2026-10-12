@@ -1,0 +1,75 @@
+/**
+ * BLEA2MQTT — page de configuration.
+ */
+#configuration_plugin_blea2mqtt {
+    --blea2mqtt-accent: #168db5;
+    --blea2mqtt-accent-dark: #17617d;
+    --blea2mqtt-border: rgba(127, 127, 127, 0.22);
+    --blea2mqtt-surface: rgba(255, 255, 255, 0.86);
+}
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-page {
+    box-sizing: border-box;
+    width: min(100%, 1320px);
+    margin: 0 auto;
+    padding: 10px 14px 28px;
+}
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px 28px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    padding: 24px 28px;
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(125deg, #17617d 0%, #168db5 55%, #0d3f54 100%);
+    box-shadow: 0 8px 22px rgba(20, 60, 75, 0.15);
+}
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-identity {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-logo {
+    flex: 0 0 92px;
+    width: 92px;
+    height: 92px;
+}
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-logo img { max-width: 100%; max-height: 100%; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-eyebrow { display: block; margin-bottom: 4px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .82; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-hero h2 { margin: 0 0 6px; color: #fff !important; font-size: 30px; font-weight: 700; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-hero p { max-width: 680px; margin: 0; color: rgba(255,255,255,.88) !important; font-size: 14px; }
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-meta { display: flex; flex-wrap: wrap; align-self: center; justify-content: flex-end; gap: 7px; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-meta span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(0,0,0,.14); font-size: 11px; white-space: nowrap; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-links .btn { display: inline-flex; align-items: center; gap: 6px; border: 0 !important; border-radius: 8px; color: #fff !important; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-link-documentation { background: #168db5 !important; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-link-changelog { background: #365c6d !important; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-link-community { background: #7564d5 !important; }
+
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card { overflow: hidden; margin-top: 16px; border: 1px solid var(--blea2mqtt-border); border-radius: 14px; background: var(--blea2mqtt-surface); box-shadow: 0 5px 16px rgba(35,55,70,.07); }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card-header { display: flex; align-items: center; gap: 13px; padding: 15px 20px; border-bottom: 1px solid var(--blea2mqtt-border); background: linear-gradient(90deg, rgba(22,141,181,.12), rgba(22,141,181,.025)); }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card-header > i { display: inline-flex; flex: 0 0 42px; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 11px; color: #fff; background: var(--blea2mqtt-accent); font-size: 18px; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card-header h3 { margin: 0 0 3px; font-size: 17px; font-weight: 650; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card-header p { margin: 0; font-size: 12px; opacity: .7; }
+#configuration_plugin_blea2mqtt .blea2mqtt-config-card-body { padding: 20px 18px 8px; }
+#configuration_plugin_blea2mqtt .control-label { font-size: 14px; font-weight: normal; }
+#configuration_plugin_blea2mqtt #manualBroker { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--blea2mqtt-border); }
+#configuration_plugin_blea2mqtt select[data-l1key="mqttProto"] { width: 88px; }
+
+[data-theme="core2019_Dark"] #configuration_plugin_blea2mqtt { --blea2mqtt-border: rgba(255,255,255,.13); --blea2mqtt-surface: rgba(38,43,47,.9); }
+
+@media (max-width: 760px) {
+    #configuration_plugin_blea2mqtt .blea2mqtt-config-hero { grid-template-columns: 1fr; padding: 20px 18px; }
+    #configuration_plugin_blea2mqtt .blea2mqtt-config-meta { justify-content: flex-start; }
+    #configuration_plugin_blea2mqtt .blea2mqtt-config-logo { flex-basis: 62px; width: 62px; height: 62px; }
+    #configuration_plugin_blea2mqtt .blea2mqtt-config-hero h2 { font-size: 23px; }
+}
